@@ -27,7 +27,7 @@ public class Conexion {
 	public void Conectar()throws SQLException{
 		if(jdbcConnection == null || jdbcConnection.isClosed()) {
 			try {
-				Class.forName("com.sql.jdbc.Driver");
+				Class.forName("com.mysql.jdbc.Driver");
 			}catch(ClassNotFoundException e) {
 				throw new SQLException(e);
 			}

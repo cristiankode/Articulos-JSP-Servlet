@@ -24,6 +24,8 @@ public class ArticuloDAO {
 
 	public ArticuloDAO(String jdbcURL, String jdbcUserName, String jdbcPassword) throws SQLException {
 		System.out.println(jdbcURL);
+		System.out.println(jdbcUserName);
+		System.out.println(jdbcPassword);
 		con = new Conexion(jdbcURL, jdbcUserName, jdbcPassword);
 	}
 
@@ -48,7 +50,7 @@ public class ArticuloDAO {
 	
 	//Listar todos los artculos
 	public List<Articulo> listarArticulos() throws SQLException{
-		
+		System.out.println("creando listado");
 		List<Articulo> listaArticulos = new ArrayList<Articulo>();
 		String sql = "SELECT * FROM articulos";
 		con.Conectar();
@@ -68,6 +70,62 @@ public class ArticuloDAO {
 		}
 		con.desconectar();
 		return listaArticulos;
+	}
+	
+	public Articulo obtenerPorId(int id) throws SQLException{
+		
+		Articulo articulo = null;
+		
+		String sql = "SELECT * FROM articulos WHERE id= ?";
+		con.Conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setInt(1, id);
+		
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			articulo = new Articulo(rs.getInt("id"), rs.getString("codigo"), rs.getString("nombre"),
+									rs.getString("descripcion"), rs.getDouble("existencia"), rs.getDouble("precio"));
+		}
+		rs.close();
+		con.desconectar();
+		
+		return articulo;
+	}
+	
+	//Actualizar
+	public boolean actualizar(Articulo articulo) throws SQLException{
+		boolean rowActualizar = false;
+		String sql = "UPDATE articulos SET codigo=?,nombre=?,descripcion=?,existencia=?,precio=?";
+		con.Conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, articulo.getCodigo());
+		ps.setString(2, articulo.getNombre());
+		ps.setString(3, articulo.getDescripcion());
+		ps.setDouble(4, articulo.getExistencia());
+		ps.setDouble(5, articulo.getPrecion());
+		ps.setInt(6, articulo.getId());
+		
+		rowActualizar = ps.executeUpdate() > 0;
+		ps.close();
+		con.desconectar();
+		return rowActualizar;
+	}
+	
+	//Eliminar
+	public boolean eliminar(Articulo articulo) throws SQLException{
+		boolean rowEliminar = false;
+		String sql = "DELETE FROM articulos WHERE id=?";
+		con.Conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setInt(1, articulo.getId());
+		
+		rowEliminar = ps.executeUpdate() > 0;
+		ps.close();
+		con.desconectar();
+		return rowEliminar;
 	}
 
 }
