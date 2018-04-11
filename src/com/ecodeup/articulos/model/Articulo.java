@@ -24,7 +24,7 @@ public class Articulo {
 		this.existencia = existencia;
 		this.precion = precion;
 	}
-
+	
 	public int getId() {
 		return id;
 	}

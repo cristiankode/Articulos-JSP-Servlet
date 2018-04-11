@@ -14,7 +14,7 @@ import com.ecodeup.articulos.model.Conexion;
 /**
  * 
  * @author cristian Hurtado
- * @email cristianjavaprogrammer@gmail.com
+ * @email <cristianjavaprogrammer@gmail.com>
  */
 
 public class ArticuloDAO {
@@ -96,7 +96,7 @@ public class ArticuloDAO {
 	//Actualizar
 	public boolean actualizar(Articulo articulo) throws SQLException{
 		boolean rowActualizar = false;
-		String sql = "UPDATE articulos SET codigo=?,nombre=?,descripcion=?,existencia=?,precio=?";
+		String sql = "UPDATE articulos SET codigo=?,nombre=?,descripcion=?,existencia=?,precio=? WHERE id=?";
 		con.Conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement ps = connection.prepareStatement(sql);

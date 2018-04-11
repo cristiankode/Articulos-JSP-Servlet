@@ -39,11 +39,13 @@ public class AdminArticulo extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		
-		System.out.println("Hola desde el servlet");
+		
 		String action = request.getParameter("action");
 		
 		try {
 			switch(action) {
+				case "nuevo":
+				nuevo(request,response);
 				case "listar":
 					mostrar(request,response);
 					break;
@@ -62,14 +64,21 @@ public class AdminArticulo extends HttpServlet{
 		}
 	}
 	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+					throws IOException,ServletException{
+		doGet(request,response);
+	}
+	
+	private void nuevo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		System.out.println("creando nuevo articulo");
+	}
+	
 	private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException,IOException {
 			
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
 		List<Articulo> listaArticulos = articuloDAO.listarArticulos();
-		for(Articulo lista : listaArticulos) {
-			
-			System.out.println(lista.getPrecion());
-		}
+		
 		request.setAttribute("lista", listaArticulos);
 		dispatcher.forward(request, response);
 		        
@@ -78,8 +87,8 @@ public class AdminArticulo extends HttpServlet{
 	private void showEditar(HttpServletRequest request, HttpServletResponse response)
 					throws SQLException, ServletException, IOException{
 		
-		String id = request.getParameter("id");
-		System.out.println(id);
+//		String id = request.getParameter("id");
+		
 		Articulo articulo = articuloDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("articulo", articulo);
 		
@@ -91,12 +100,25 @@ public class AdminArticulo extends HttpServlet{
 	private void editar(HttpServletRequest request, HttpServletResponse response) 
 			throws SQLException, ServletException, IOException{
 		
+		String codigo = request.getParameter("codigo").trim();
+		String nombre = request.getParameter("nombre").trim();
+		String descripcion = request.getParameter("descripcion").trim();
+		String existencia = request.getParameter("existencia").trim();
+		String precio = request.getParameter("precio").trim();
+		String id = request.getParameter("id");
+		
+		
+		Articulo articulo = new Articulo(Integer.parseInt(id),codigo,nombre,descripcion,Double.parseDouble(existencia),Double.parseDouble(precio));
+		
+		boolean rowUpdated = articuloDAO.actualizar(articulo);
+		System.out.println(rowUpdated);
+		mostrar(request,response);
+		
 	}
 	
 	private void eliminar(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException{
 		
-//		String id = request.getParameter("id");
 		Articulo articulo = articuloDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
 		articuloDAO.eliminar(articulo);
 		mostrar(request,response);
