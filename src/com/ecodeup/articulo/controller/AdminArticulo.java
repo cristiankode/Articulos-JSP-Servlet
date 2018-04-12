@@ -71,6 +71,21 @@ public class AdminArticulo extends HttpServlet{
 	
 	private void nuevo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+		String codigo = request.getParameter("codigo").toUpperCase().trim();;
+		String name = request.getParameter("nombre").toUpperCase().trim();
+		String descripcion = request.getParameter("descripcion").toUpperCase().trim();
+		String existencia = request.getParameter("existencia").trim();
+		String precio = request.getParameter("precio").trim();
+		
+		Articulo articulo = new Articulo(codigo,name,descripcion, Integer.parseInt(existencia) , Double.parseDouble(precio));
+		try {
+			int newRow = articuloDAO.insertar(articulo);
+			System.out.println(newRow);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("creando nuevo articulo");
 	}
 	

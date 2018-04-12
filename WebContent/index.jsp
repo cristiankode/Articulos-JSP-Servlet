@@ -1,4 +1,4 @@
-
+<jsp:include page="vista/header.jsp" />
 <br>
 	<div class="container">
 		<a class="btn btn-primary" href="adminArticulo?action=listar"

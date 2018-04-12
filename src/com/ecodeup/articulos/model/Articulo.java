@@ -25,6 +25,17 @@ public class Articulo {
 		this.precion = precion;
 	}
 	
+	public Articulo(String codigo, String nombre, String descripcion, double existencia, double precion) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.existencia = existencia;
+		this.precion = precion;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}

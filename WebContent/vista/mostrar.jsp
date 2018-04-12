@@ -24,7 +24,6 @@
 				<td><c:out value="${articulo.descripcion }"/></td>
 				<td><c:out value="${articulo.existencia}"/></td>
 				<td>$&nbsp<c:out value="${articulo.precion}"/></td>
-				
 				<td><a class="btn btn-warning" href="adminArticulo?action=showEdit&id=<c:out value="${articulo.id}"/>" role="button">Editar</a></td>
 				<td><a class="btn btn-danger" role="button" href="adminArticulo?action=eliminar&id=<c:out value="${articulo.id}"/>">Eliminar</a></td>
 			</tr>

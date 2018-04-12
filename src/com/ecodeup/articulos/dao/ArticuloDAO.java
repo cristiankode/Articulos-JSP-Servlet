@@ -30,22 +30,24 @@ public class ArticuloDAO {
 	}
 
 	// insertar un Articulo
-	public boolean insertar(Articulo articulo) throws SQLException {
-		String sql = "INSERT INTO articulos (id,codigo,nombre,descripcion,existencia,precio) VALUES(?,?,?,?,?,?)";
+	public int insertar(Articulo articulo) throws SQLException {
+		int rows = 0;
+		String sql = "INSERT INTO articulos (codigo,nombre,descripcion,existencia,precio) VALUES(?,?,?,?,?)";
 		System.out.println(sql);
 		con.Conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(0, null);
-		statement.setString(1, articulo.getNombre());
-		statement.setString(2, articulo.getDescripcion());
-		statement.setDouble(3, articulo.getExistencia());
-		statement.setDouble(4, articulo.getPrecion());
-		
-		boolean rowInserted = statement.executeUpdate() > 0;
+//		statement.setString(0, null);
+		statement.setString(1, articulo.getCodigo());
+		statement.setString(2, articulo.getNombre());
+		statement.setString(3, articulo.getDescripcion());
+		statement.setDouble(4, articulo.getExistencia());
+		statement.setDouble(5, articulo.getPrecion());
+		rows = statement.executeUpdate();
+		System.out.println("registros afectados" + rows);
 		statement.close();
 		con.desconectar();
-		return rowInserted;
+		return rows;
 	}
 	
 	//Listar todos los artculos
