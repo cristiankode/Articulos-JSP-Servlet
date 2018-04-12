@@ -1,17 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<jsp:include page="header.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	<br>
 	<div class="container">
 		<form class="form-horizontal" action="adminArticulo?action=editar" method="post">
 		<div class="col-md-12">
@@ -33,9 +22,8 @@
 					<input class="btn btn-primary" type="submit" name="registrar" value="Guardar">
 					<a class="btn btn-danger" href="adminArticulo?action=listar" role="button">Cancelar</a>			
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-3"></div>
 		</div>
 		</form>
 	</div>
-</body>
-</html>
+<jsp:include page="footer.jsp"></jsp:include>
